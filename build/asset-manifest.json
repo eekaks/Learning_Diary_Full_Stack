@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.ec1e9ce5.css",
-    "main.js": "/static/js/main.f9c3bb10.js",
+    "main.css": "/static/css/main.b1a2f3f1.css",
+    "main.js": "/static/js/main.d5b3e479.js",
     "static/js/787.cc6a0252.chunk.js": "/static/js/787.cc6a0252.chunk.js",
     "static/media/learningdiarylogo.png": "/static/media/learningdiarylogo.b075dd0aa4142f07b85e.png",
     "index.html": "/index.html",
-    "main.ec1e9ce5.css.map": "/static/css/main.ec1e9ce5.css.map",
-    "main.f9c3bb10.js.map": "/static/js/main.f9c3bb10.js.map",
+    "main.b1a2f3f1.css.map": "/static/css/main.b1a2f3f1.css.map",
+    "main.d5b3e479.js.map": "/static/js/main.d5b3e479.js.map",
     "787.cc6a0252.chunk.js.map": "/static/js/787.cc6a0252.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ec1e9ce5.css",
-    "static/js/main.f9c3bb10.js"
+    "static/css/main.b1a2f3f1.css",
+    "static/js/main.d5b3e479.js"
   ]
 }
