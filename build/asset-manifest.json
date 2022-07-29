@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b423f10a.css",
+    "main.js": "/static/js/main.f9c3bb10.js",
+    "static/js/787.cc6a0252.chunk.js": "/static/js/787.cc6a0252.chunk.js",
+    "static/media/learningdiarylogo.png": "/static/media/learningdiarylogo.b075dd0aa4142f07b85e.png",
+    "index.html": "/index.html",
+    "main.b423f10a.css.map": "/static/css/main.b423f10a.css.map",
+    "main.f9c3bb10.js.map": "/static/js/main.f9c3bb10.js.map",
+    "787.cc6a0252.chunk.js.map": "/static/js/787.cc6a0252.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b423f10a.css",
+    "static/js/main.f9c3bb10.js"
+  ]
+}

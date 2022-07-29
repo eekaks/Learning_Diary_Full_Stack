@@ -106,6 +106,7 @@ let tasks = [
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 app.use(cors())
+app.use(express.static('build'))
 
 app.get('/', (req, res) => {
   res.send('<h1>Learning Diary innit</h1>')
@@ -145,7 +146,29 @@ app.post('/topic', (req, res) => {
     topics = topics.concat(topic)
   
     res.json(topic)
-  })
+})
+
+app.put('/topic/:id', (req, res) => {
+    const id = Number(req.params.id)
+    const updateRequest = req.body
+    const topic = topics.find(topic => topic.id === updateRequest.id)
+
+    if (topic) {
+        topic.id = updateRequest.id
+        topic.title = updateRequest.title
+        topic.description = updateRequest.description
+        topic.estimatedTimeToMaster = updateRequest.estimatedTimeToMaster
+        topic.timeSpent = updateRequest.timeSpent
+        topic.source = updateRequest.source
+        topic.startLearningDate = updateRequest.startLearningDate
+        topic.inProgress = updateRequest.inProgress
+        topic.completionDate = updateRequest.completionDate
+    } else {
+        res.status(404).end()
+    }
+
+    res.json(topic)
+})
 
 app.get('/task', (req, res) => {
     res.json(tasks)
@@ -183,7 +206,26 @@ app.post('/task', (req, res) => {
     res.json(task)
 })
 
+app.put('/task/:id', (req, res) => {
+    const id = Number(req.params.id)
+    const updateRequest = req.body
+    const task = tasks.find(task => task.id === updateRequest.id)
 
+    if (task) {
+        task.id = updateRequest.id
+        task.topic = updateRequest.topic
+        task.title = updateRequest.title
+        task.description = updateRequest.description
+        task.deadline = updateRequest.deadline
+        task.priority = updateRequest.priority
+        task.done = updateRequest.done
+        task.notes = updateRequest.notes
+    } else {
+        res.status(404).end()
+    }
+
+    res.json(task)
+})
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
