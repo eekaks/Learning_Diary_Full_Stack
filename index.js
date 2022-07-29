@@ -130,6 +130,7 @@ app.get('/topic/:id', (req, res) => {
 app.delete('/topic/:id', (req, res) => {
     const id = Number(req.params.id)
     topics = topics.filter(topic => topic.id !== id)
+    tasks = tasks.filter(task => task.topic !== id)
   
     res.status(204).end()
 })
