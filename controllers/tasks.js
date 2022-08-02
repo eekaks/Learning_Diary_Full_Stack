@@ -1,36 +1,30 @@
 const tasksRouter = require('express').Router()
 const Task = require('../models/task')
 
-tasksRouter.get('/', (req, res) => {
-	Task.find({}).then(tasks => {
+tasksRouter.get('/', async (req, res) => {
+	const tasks = await Task.find({})
 		res.json(tasks)
-	})
 })
 
-tasksRouter.get('/:id', (req, res, next) => {
-	Task.findById(req.params.id).then(task => {
+tasksRouter.get('/:id', async (req, res) => {
+	const task = await Task.findById(req.params.id)
 		if (task) {
 			res.json(task)
 		} else {
 			res.status(404).end()
 		}
-	})
-		.catch(error => next(error))
 })
 
 /* eslint-disable no-unused-vars */
 
-tasksRouter.delete('/:id', (req, res, next) => {
-	Task.findByIdAndRemove(req.params.id)
-		.then(result => {
-			res.status(204).end()
-		})
-		.catch(error => next(error))
+tasksRouter.delete('/:id', async (req, res) => {
+	await Task.findByIdAndRemove(req.params.id)
+	res.status(204).end()
 })
 
 /* eslint-enable no-unused-vars */
 
-tasksRouter.post('/', (req, res, next) => {
+tasksRouter.post('/', async (req, res) => {
 
 	const body = req.body
 
@@ -47,14 +41,11 @@ tasksRouter.post('/', (req, res, next) => {
 		done: body.done,
 		notes: body.notes
 	})
-
-	task.save().then(savedTask => {
-		res.json(savedTask)
-	})
-		.catch(error => next(error))
+	const savedTask = await task.save()
+	res.status(201).json(savedTask)
 })
 
-tasksRouter.put('/:id', (req, res, next) => {
+tasksRouter.put('/:id', async (req, res) => {
 	const updateRequest = req.body
 	const task = {
 		topic: updateRequest.topic,
@@ -65,11 +56,8 @@ tasksRouter.put('/:id', (req, res, next) => {
 		done: updateRequest.done,
 		notes: updateRequest.notes
 	}
-	Task.findByIdAndUpdate(req.params.id, task, { new: true })
-		.then(updatedTask => {
-			res.json(updatedTask)
-		})
-		.catch(error => next(error))
+	const updatedTask = await Task.findByIdAndUpdate(req.params.id, task, { new: true })
+	res.json(updatedTask)
 })
 
 module.exports = tasksRouter

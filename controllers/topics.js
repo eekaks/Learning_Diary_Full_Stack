@@ -2,37 +2,31 @@ const topicsRouter = require('express').Router()
 const Topic = require('../models/topic')
 const Task = require('../models/task')
 
-topicsRouter.get('/', (req, res) => {
-	Topic.find({}).then(topics => {
-		res.json(topics)
-	})
+topicsRouter.get('/', async (req, res) => {
+	const topics = await Topic.find({})
+	res.json(topics)
 })
 
-topicsRouter.get('/:id', (req, res, next) => {
-	Topic.findById(req.params.id).then(topic => {
-		if (topic) {
-			res.json(topic)
-		} else {
-			res.status(404).end()
-		}
-	})
-		.catch(error => next(error))
+topicsRouter.get('/:id', async (req, res) => {
+	const topic = await Topic.findById(req.params.id)
+	if (topic) {
+		res.json(topic)
+	} else {
+		res.status(404).end()
+	}
 })
 
 /* eslint-disable no-unused-vars */
 
-topicsRouter.delete('/:id', (req, res, next) => {
-	Topic.findByIdAndRemove(req.params.id)
-		.then(result => {
-			Task.deleteMany( { topic: req.params.id } )
-			res.status(204).end()
-		})
-		.catch(error => next(error))
+topicsRouter.delete('/:id', async (req, res) => {
+	await Topic.findByIdAndRemove(req.params.id)
+	await Task.deleteMany( { topic: req.params.id } )
+	res.status(204).end()
 })
 
 /* eslint-enable no-unused-vars */
 
-topicsRouter.post('/', (req, res, next) => {
+topicsRouter.post('/', async (req, res) => {
 
 	const body = req.body
 
@@ -50,14 +44,11 @@ topicsRouter.post('/', (req, res, next) => {
 		inProgress: body.inProgress,
 		completionDate: body.completionDate
 	})
-
-	topic.save().then(savedTopic => {
-		res.json(savedTopic)
-	})
-		.catch(error => next(error))
+	const savedTopic = await topic.save()
+	res.status(201).json(savedTopic)
 })
 
-topicsRouter.put('/:id', (req, res, next) => {
+topicsRouter.put('/:id', async (req, res) => {
 	const updateRequest = req.body
 	const topic = {
 		title: updateRequest.title,
@@ -69,11 +60,8 @@ topicsRouter.put('/:id', (req, res, next) => {
 		inProgress: updateRequest.inProgress,
 		completionDate: updateRequest.completionDate
 	}
-	Topic.findByIdAndUpdate(req.params.id, topic, { new: true })
-		.then(updatedTopic => {
-			res.json(updatedTopic)
-		})
-		.catch(error => next(error))
+	const updatedTopic = await Topic.findByIdAndUpdate(req.params.id, topic, { new: true })
+	res.json(updatedTopic)
 })
 
 module.exports = topicsRouter
