@@ -19,7 +19,11 @@ const topicSchema = new mongoose.Schema({
         required: true
     },
     inProgress: Boolean,
-    completionDate: Date
+    completionDate: Date,
+		user: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User'
+		}
 })
 
 topicSchema.set('toJSON', {
