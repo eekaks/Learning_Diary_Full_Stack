@@ -47,6 +47,7 @@ topicsRouter.post('/', async (req, res) => {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
   const user = await User.findById(decodedToken.id)
+	console.log(user._id)
 
 	if (body.title === undefined) {
 		return res.status(400).json({ error: 'content missing' })
@@ -61,8 +62,10 @@ topicsRouter.post('/', async (req, res) => {
 		startLearningDate: body.startLearningDate,
 		inProgress: body.inProgress,
 		completionDate: body.completionDate,
-		user: user._id
+		user: user._id,
+		sortingid: user._id
 	})
+
 	const savedTopic = await topic.save()
 
 	user.topics = user.topics.concat(savedTopic._id)

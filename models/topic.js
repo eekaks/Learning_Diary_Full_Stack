@@ -23,7 +23,8 @@ const topicSchema = new mongoose.Schema({
 		user: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User'
-		}
+		},
+		sortingid: mongoose.Schema.Types.ObjectId
 })
 
 topicSchema.set('toJSON', {
