@@ -13,9 +13,9 @@ const getTokenFrom = req => {
 }
 
 topicsRouter.get('/', async (req, res) => {
-	const topics = await Topic
-		.find({}).populate('user', { username: 1, name: 1 })
-	res.json(topics)
+		const topics = await Topic
+			.find({}).populate('user', { username: 1, name: 1 })
+		res.json(topics)
 })
 
 topicsRouter.get('/:id', async (req, res) => {
